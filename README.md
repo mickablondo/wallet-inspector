@@ -107,7 +107,10 @@ $ sudo apt install -y pkg-config libssl-dev
 ### Développement
 
 Fichier main.rs : point d'entrée qui appelle la méthode run() du module cli.  
-Fichier cli.rs : récupère les arguments, vérifie que l'adresse passée en paramètre est bien au format Ethereum.
+Fichier cli.rs : récupère les arguments, vérifie que l'adresse passée en paramètre est bien au format Ethereum.  
+Fichier rpc.rs : appel réseau pour récupérer le solde ETH d'une adresse.
+
+/!\ Besoin de créer une clé API Alchemy (gratuite) sur https://alchemy.com.
 
 Compilation et exécution :
 
