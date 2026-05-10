@@ -91,3 +91,18 @@ $ cd cairo && scarb build
    Compiling cairo v0.1.0 (/mnt/d/Developpement/github/wallet-inspector/cairo/Scarb.toml)
     Finished `dev` profile target(s) in 1 second
 ```
+
+### Développement
+
+Fichier main.rs : point d'entrée qui appelle la méthode run() du module cli.  
+Fichier cli.rs :
+
+Compilation et exécution :
+
+```bash
+$ cargo run -- 0x1234abcd
+   Compiling wallet-inspector v0.1.0 (/mnt/d/Developpement/github/wallet-inspector)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.72s
+     Running `target/debug/wallet-inspector 0x1234abcd`
+Inspecting address: 0x1234abcd
+```
