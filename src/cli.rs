@@ -1,6 +1,6 @@
 use std::env;
 
-pub fn run() {
+pub async fn run() {
     // récupération des arguments de la ligne de commande
     let args: Vec<String> = env::args().collect();
 
@@ -18,7 +18,17 @@ pub fn run() {
         std::process::exit(1);
     }
 
-    println!("Adresse: {}", address);
+    // vérification de la bonne récupération de la clé API d'Alchemy depuis les variables d'environnement
+    let api_key = env::var("ALCHEMY_API_KEY").unwrap_or_else(|_| {
+        eprintln!("Error: ALCHEMY_API_KEY non trouvé dans .env");
+        std::process::exit(1);
+    });
+
+    // appel de la fonction get_balance pour récupérer le solde de l'adresse et affichage du résultat
+    match crate::rpc::get_balance(address, &api_key).await {
+        Ok(balance) => println!("Balance: {:.4} ETH", balance),
+        Err(e) => eprintln!("Error: {}", e),
+    }
 }
 
 /**

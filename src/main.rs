@@ -1,5 +1,8 @@
 mod cli;
+mod rpc;
 
-fn main() {
-    cli::run();
+#[tokio::main]
+async fn main() {
+    dotenvy::dotenv().ok();
+    cli::run().await;
 }

@@ -108,11 +108,12 @@ $ sudo apt install -y pkg-config libssl-dev
 
 Fichier main.rs : point d'entrée qui appelle la méthode run() du module cli.  
 Fichier cli.rs : récupère les arguments, vérifie que l'adresse passée en paramètre est bien au format Ethereum.  
-Fichier rpc.rs : appel réseau pour récupérer le solde ETH d'une adresse.
+Fichier rpc.rs : appel réseau pour récupérer le solde ETH d'une adresse.  
+Fichier .env : fichier à créer à la racine du répertoire du projet, et doit contenir : ALCHEMY_API_KEY=<votre_api_key_alchemy>
 
 /!\ Besoin de créer une clé API Alchemy (gratuite) sur https://alchemy.com.
 
-Compilation et exécution :
+Tests sur l'adresse Ethereum :
 
 ```bash
 $ cargo run -- 0x1234abcd
@@ -121,13 +122,18 @@ $ cargo run -- 0x1234abcd
      Running `target/debug/wallet-inspector 0x1234abcd`
 Error: '0x1234abcd' n est pas une adresse Ethereum valide
 
-$ cargo run -- 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
-     Running `target/debug/wallet-inspector 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045`
-Adresse: 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
-
 $ cargo run -- saucisse
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
      Running `target/debug/wallet-inspector saucisse`
 Error: 'saucisse' n est pas une adresse Ethereum valide
+```
+
+Test de récupération de la balance d'une adresse Ethereum :
+
+```bash
+$ cargo run -- 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
+   Compiling wallet-inspector v0.1.0
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.41s
+     Running `target/debug/wallet-inspector 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045`
+Balance: 229.5975 ETH
 ```
