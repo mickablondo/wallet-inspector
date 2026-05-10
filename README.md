@@ -92,6 +92,18 @@ $ cd cairo && scarb build
     Finished `dev` profile target(s) in 1 second
 ```
 
+Ajout des dépendances dans Cargo.toml puis build :
+
+```bash
+$ cargo build
+```
+
+/!\ J'ai dû ajouter deux dépendances pour que le build fonctionne :
+
+```bash
+$ sudo apt install -y pkg-config libssl-dev
+```
+
 ### Développement
 
 Fichier main.rs : point d'entrée qui appelle la méthode run() du module cli.  
