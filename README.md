@@ -95,14 +95,24 @@ $ cd cairo && scarb build
 ### Développement
 
 Fichier main.rs : point d'entrée qui appelle la méthode run() du module cli.  
-Fichier cli.rs :
+Fichier cli.rs : récupère les arguments, vérifie que l'adresse passée en paramètre est bien au format Ethereum.
 
 Compilation et exécution :
 
 ```bash
 $ cargo run -- 0x1234abcd
-   Compiling wallet-inspector v0.1.0 (/mnt/d/Developpement/github/wallet-inspector)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.72s
+   Compiling wallet-inspector v0.1.0
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.79s
      Running `target/debug/wallet-inspector 0x1234abcd`
-Inspecting address: 0x1234abcd
+Error: '0x1234abcd' n est pas une adresse Ethereum valide
+
+$ cargo run -- 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running `target/debug/wallet-inspector 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045`
+Adresse: 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
+
+$ cargo run -- saucisse
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running `target/debug/wallet-inspector saucisse`
+Error: 'saucisse' n est pas une adresse Ethereum valide
 ```
