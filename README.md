@@ -13,7 +13,7 @@ Un outil en ligne de commande (CLI) écrit en Rust pour inspecter l'activité de
 
 ### Installation
 
-Vérifier que les composnants suivants ne sont pas déjà installés :
+Vérifier que les composants suivants ne sont pas déjà installés :
 
 ```bash
 $ rustc --version
