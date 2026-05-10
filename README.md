@@ -2,7 +2,7 @@
 
 A CLI tool written in Rust to inspect Ethereum and StarkNet wallet activity. Includes a minimal Cairo contract as a learning exercise.
 
-## Stach technique
+## Stack technique
 
 - Rust : le langage de programmation pour le CLI ;
 - Cargo : l'outil de build et gestionnaire de dépendances de Rust ;
@@ -106,10 +106,10 @@ $ sudo apt install -y pkg-config libssl-dev
 
 ### Développement
 
-Fichier main.rs : point d'entrée qui appelle la méthode run() du module cli.  
-Fichier cli.rs : récupère les arguments, vérifie que l'adresse passée en paramètre est bien au format Ethereum.  
-Fichier rpc.rs : appel réseau pour récupérer le solde ETH d'une adresse.  
-Fichier .env : fichier à créer à la racine du répertoire du projet, et doit contenir : ALCHEMY_API_KEY=<votre_api_key_alchemy>
+- Fichier main.rs : point d'entrée qui appelle la méthode run() du module cli.  
+- Fichier cli.rs : récupère les arguments, vérifie que l'adresse passée en paramètre est bien au format Ethereum.  
+- Fichier rpc.rs : appel réseau pour récupérer le solde ETH d'une adresse.  
+- Fichier .env : fichier à créer à la racine du répertoire du projet, et doit contenir : ALCHEMY_API_KEY=<votre_api_key_alchemy>
 
 /!\ Besoin de créer une clé API Alchemy (gratuite) sur https://alchemy.com.
 
