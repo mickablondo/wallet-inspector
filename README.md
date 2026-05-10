@@ -1,6 +1,6 @@
 # Wallet Inspector
 
-A CLI tool written in Rust to inspect Ethereum and StarkNet wallet activity. Includes a minimal Cairo contract as a learning exercise.
+Un outil en ligne de commande (CLI) écrit en Rust pour inspecter l'activité des portefeuilles Ethereum et StarkNet. Le projet va inclure également un contrat Cairo qui servira de carnet d'adresses on-chain.
 
 ## Stack technique
 
