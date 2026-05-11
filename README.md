@@ -139,9 +139,9 @@ $ cargo run -- 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
 Balance: 229.5997 ETH
 
 Dernières transactions :
-  0xc691d347640b88d3 | 0.00000555 ETH | 0xe02b584b -> 0xd8da6bf2 | ✓
-  0xcdf409f88aa6f157 | 0.00010000 ETH | 0xb6035198 -> 0xd8da6bf2 | ✓
-  0x060840190ce3fba1 | 0.00000000 ETH | 0xb6035198 -> 0xd8da6bf2 | ✓
-  0x2fb588b728ed2a7a | 0.00000500 ETH | 0xe02b584b -> 0xd8da6bf2 | ✓
-  0x50e2e0026c2a09e5 | 0.00000808 ETH | 0xe02b584b -> 0xd8da6bf2 | ✓
+  2026-05-11 12:20 | 0xc691d347640b88d3 | 0.00000555 ETH | 0xe02b584b -> 0xd8da6bf2 | ✓
+  2026-05-11 06:38 | 0xcdf409f88aa6f157 | 0.00010000 ETH | 0xb6035198 -> 0xd8da6bf2 | ✓
+  2026-05-11 06:38 | 0x060840190ce3fba1 | 0.00000000 ETH | 0xb6035198 -> 0xd8da6bf2 | ✓
+  2026-05-11 05:55 | 0x2fb588b728ed2a7a | 0.00000500 ETH | 0xe02b584b -> 0xd8da6bf2 | ✓
+  2026-05-11 04:46 | 0x50e2e0026c2a09e5 | 0.00000808 ETH | 0xe02b584b -> 0xd8da6bf2 | ✓
 ```

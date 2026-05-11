@@ -1,4 +1,6 @@
 use std::env;
+use colored::Colorize;
+use chrono::{DateTime, Utc};
 
 pub async fn run() {
     // récupération des arguments de la ligne de commande
@@ -45,12 +47,26 @@ pub async fn run() {
             for tx in txs {
                 let wei: u128 = tx.value.parse().unwrap_or(0);
                 let eth = wei as f64 / 1e18;
-                println!("  {} | {:.8} ETH | {} -> {} | {}",
-                    &tx.hash[..18],
+
+                let timestamp: i64 = tx.time_stamp.parse().unwrap_or(0);
+                let date = DateTime::from_timestamp(timestamp, 0)
+                    .unwrap_or_default()
+                    .format("%Y-%m-%d %H:%M")
+                    .to_string();
+
+                let status = if tx.is_error == "0" {
+                    "✓".green()
+                } else {
+                    "✗".red()
+                };
+
+                println!("  {} | {} | {:.8} ETH | {} -> {} | {}",
+                    date.dimmed(),
+                    &tx.hash[..18].yellow(),
                     eth,
-                    &tx.from[..10],
-                    &tx.to[..10],
-                    if tx.is_error == "0" { "✓" } else { "✗" }
+                    &tx.from[..10].cyan(),
+                    &tx.to[..10].cyan(),
+                    status
                 );
             }
         },
