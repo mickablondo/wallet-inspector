@@ -106,12 +106,13 @@ $ sudo apt install -y pkg-config libssl-dev
 
 ### Développement
 
-- Fichier main.rs : point d'entrée qui appelle la méthode run() du module cli.  
-- Fichier cli.rs : récupère les arguments, vérifie que l'adresse passée en paramètre est bien au format Ethereum.  
-- Fichier rpc.rs : appel réseau pour récupérer le solde ETH d'une adresse.  
-- Fichier .env : fichier à créer à la racine du répertoire du projet, et doit contenir : ALCHEMY_API_KEY=<votre_api_key_alchemy>
+- Fichier main.rs : point d'entrée qui appelle la méthode run() du module cli.
+- Fichier cli.rs : récupère les arguments, vérifie que l'adresse passée en paramètre est bien au format Ethereum.
+- Fichier rpc.rs : appel réseau pour récupérer le solde ETH d'une adresse et ses 5 dernières transactions.
+- Fichier .env : fichier à créer à la racine du répertoire du projet, et doit contenir : ALCHEMY_API_KEY=<votre_api_key_alchemy> et ETHERSCAN_API_KEY=<votre_api_key_etherscan>
 
-/!\ Besoin de créer une clé API Alchemy (gratuite) sur https://alchemy.com.
+/!\ Besoin de créer une clé API Alchemy (gratuite) sur https://alchemy.com pour récupérer la balance de l'adresse.  
+/!\ Besoin de créer une clé API Etherscan (gratuite) sur https://etherscan.io pour récupérer l'historique des transactions.
 
 Tests sur l'adresse Ethereum :
 
@@ -135,5 +136,12 @@ $ cargo run -- 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
    Compiling wallet-inspector v0.1.0
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.41s
      Running `target/debug/wallet-inspector 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045`
-Balance: 229.5975 ETH
+Balance: 229.5997 ETH
+
+Dernières transactions :
+  0xc691d347640b88d3 | 0.00000555 ETH | 0xe02b584b -> 0xd8da6bf2 | ✓
+  0xcdf409f88aa6f157 | 0.00010000 ETH | 0xb6035198 -> 0xd8da6bf2 | ✓
+  0x060840190ce3fba1 | 0.00000000 ETH | 0xb6035198 -> 0xd8da6bf2 | ✓
+  0x2fb588b728ed2a7a | 0.00000500 ETH | 0xe02b584b -> 0xd8da6bf2 | ✓
+  0x50e2e0026c2a09e5 | 0.00000808 ETH | 0xe02b584b -> 0xd8da6bf2 | ✓
 ```

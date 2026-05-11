@@ -18,6 +18,7 @@ pub async fn run() {
         std::process::exit(1);
     }
 
+    // ----------- ALCHEMY -----------
     // vérification de la bonne récupération de la clé API d'Alchemy depuis les variables d'environnement
     let api_key = env::var("ALCHEMY_API_KEY").unwrap_or_else(|_| {
         eprintln!("Error: ALCHEMY_API_KEY non trouvé dans .env");
@@ -27,6 +28,32 @@ pub async fn run() {
     // appel de la fonction get_balance pour récupérer le solde de l'adresse et affichage du résultat
     match crate::rpc::get_balance(address, &api_key).await {
         Ok(balance) => println!("Balance: {:.4} ETH", balance),
+        Err(e) => eprintln!("Error: {}", e),
+    }
+
+    // ----------- ETHERSCAN -----------
+    // vérification de la bonne récupération de la clé API d'Etherscan depuis les variables d'environnement
+    let etherscan_key = env::var("ETHERSCAN_API_KEY").unwrap_or_else(|_| {
+        eprintln!("Error: ETHERSCAN_API_KEY non trouvé dans .env");
+        std::process::exit(1);
+    });
+
+    // appel de la fonction get_transactions pour récupérer les 5 dernières transactions de l'adresse et affichage du résultat
+    match crate::rpc::get_transactions(address, &etherscan_key).await {
+        Ok(txs) => {
+            println!("\nDernières transactions :");
+            for tx in txs {
+                let wei: u128 = tx.value.parse().unwrap_or(0);
+                let eth = wei as f64 / 1e18;
+                println!("  {} | {:.8} ETH | {} -> {} | {}",
+                    &tx.hash[..18],
+                    eth,
+                    &tx.from[..10],
+                    &tx.to[..10],
+                    if tx.is_error == "0" { "✓" } else { "✗" }
+                );
+            }
+        },
         Err(e) => eprintln!("Error: {}", e),
     }
 }
