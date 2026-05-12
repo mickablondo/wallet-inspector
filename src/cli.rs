@@ -63,7 +63,7 @@ pub async fn run() {
                 println!("  {} | {} | {:.8} ETH | {} -> {} | {}",
                     date.dimmed(),
                     &tx.hash[..18].yellow(),
-                    eth,
+                    eth.to_string().magenta().underline(),
                     &tx.from[..10].cyan(),
                     &tx.to[..10].cyan(),
                     status
