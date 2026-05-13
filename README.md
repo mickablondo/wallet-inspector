@@ -106,6 +106,8 @@ $ sudo apt install -y pkg-config libssl-dev
 
 ### Développement
 
+#### Rust
+
 - Fichier main.rs : point d'entrée qui appelle la méthode run() du module cli.
 - Fichier cli.rs : récupère les arguments, vérifie que l'adresse passée en paramètre est bien au format Ethereum.
 - Fichier rpc.rs : appel réseau pour récupérer le solde ETH d'une adresse et ses 5 dernières transactions.
@@ -145,3 +147,15 @@ Dernières transactions :
   2026-05-11 05:55 | 0x2fb588b728ed2a7a | 0.00000500 ETH | 0xe02b584b -> 0xd8da6bf2 | ✓
   2026-05-11 04:46 | 0x50e2e0026c2a09e5 | 0.00000808 ETH | 0xe02b584b -> 0xd8da6bf2 | ✓
 ```
+
+#### Cairo
+
+Développement du smart contract dans wallet_reader.cairo.
+
+Ce smart contract est un registre d'adresses favorites stocké sur la blockchain StarkNet.
+
+Les fonctions accessibles :
+
+- add_watched_address : ajoute une adresse à la liste ;
+- get_watched_count : retourne le nombre d'adresses stockées ;
+- get_watched_address : retourne l'adresse à un index donné ;
