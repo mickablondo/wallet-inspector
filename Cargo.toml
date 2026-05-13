@@ -12,3 +12,5 @@ anyhow = "1"
 dotenvy = "0.15"
 chrono = "0.4"
 colored = "2"
+starknet = { git = "https://github.com/xJonathanLEI/starknet-rs" }
+num-traits = "0.2"

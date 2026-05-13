@@ -111,7 +111,11 @@ $ sudo apt install -y pkg-config libssl-dev
 - Fichier main.rs : point d'entrée qui appelle la méthode run() du module cli.
 - Fichier cli.rs : récupère les arguments, vérifie que l'adresse passée en paramètre est bien au format Ethereum.
 - Fichier rpc.rs : appel réseau pour récupérer le solde ETH d'une adresse et ses 5 dernières transactions.
-- Fichier .env : fichier à créer à la racine du répertoire du projet, et doit contenir : ALCHEMY_API_KEY=<votre_api_key_alchemy> et ETHERSCAN_API_KEY=<votre_api_key_etherscan>
+- Fichier starknet.rs : permet de contacter le smart contract Cairo.
+- Fichier .env : fichier à créer à la racine du répertoire du projet, et doit contenir :
+  - ALCHEMY_API_KEY=<votre_api_key_alchemy>
+  - ETHERSCAN_API_KEY=<votre_api_key_etherscan>
+  - STARKNET_RPC_URL=https://starknet-sepolia.public.blastapi.io/rpc/v0_7
 
 /!\ Besoin de créer une clé API Alchemy (gratuite) sur https://alchemy.com pour récupérer la balance de l'adresse.  
 /!\ Besoin de créer une clé API Etherscan (gratuite) sur https://etherscan.io pour récupérer l'historique des transactions.

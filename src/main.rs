@@ -1,5 +1,6 @@
 mod cli;
 mod rpc;
+mod starknet;
 
 #[tokio::main]
 async fn main() {

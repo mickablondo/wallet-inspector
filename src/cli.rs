@@ -1,6 +1,6 @@
 use std::env;
 use colored::Colorize;
-use chrono::{DateTime, Utc};
+use chrono::DateTime;
 
 pub async fn run() {
     // récupération des arguments de la ligne de commande
@@ -71,6 +71,20 @@ pub async fn run() {
             }
         },
         Err(e) => eprintln!("Error: {}", e),
+    }
+
+    // ----------- STARKNET -----------
+    let rpc_url = env::var("STARKNET_RPC_URL").unwrap_or_else(|_| {
+        eprintln!("Error: STARKNET_RPC_URL non trouvé dans .env");
+        std::process::exit(1);
+    });
+
+    // Contrat de test ETH sur Sepolia StarkNet
+    let contract = "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7";
+
+    match crate::starknet::get_watched_count(contract, &rpc_url).await {
+        Ok(count) => println!("\nStarkNet contract - compteur : {}", count),
+        Err(e) => eprintln!("StarkNet error: {}", e),
     }
 }
 
