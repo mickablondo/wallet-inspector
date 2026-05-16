@@ -163,3 +163,20 @@ Les fonctions accessibles :
 - add_watched_address : ajoute une adresse à la liste ;
 - get_watched_count : retourne le nombre d'adresses stockées ;
 - get_watched_address : retourne l'adresse à un index donné ;
+
+### Déploiement du smart contract
+
+#### Pré requis
+
+Pour déployer le smart contract Cairo sur une blockchain de test, il faut d'abord installer starkli, l'outil CLI pour interagir avec StarkNet :
+
+```bash
+$ curl https://get.starkli.sh | sh
+$ source /home/<user>/.starkli/env
+$ starkliup
+$ starkli --version
+```
+
+Installer ensuite l'extension https://www.argent.xyz/argent-x/ qui permettra de créer un nouveau wallet compatible StarkNet.
+
+... Work In Progress
