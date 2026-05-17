@@ -1,3 +1,5 @@
+// WalletReader contract v2
+// author : mikablondo
 use starknet::ContractAddress;
 
 #[starknet::interface]
