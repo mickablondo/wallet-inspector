@@ -221,7 +221,7 @@ Deploy this account by running:
     starkli account deploy /home/<user>/.starkli-wallets/account-descriptor.json
 ```
 
-Déposer 5 STRX via l'extension Ready X (réseau Sépolia !) sur l'adresse indiquée en sortie de la précédente commande.
+Déposer 5 STRK via l'extension Ready X (réseau Sépolia !) sur l'adresse indiquée en sortie de la précédente commande.
 
 ### Déploiement
 
