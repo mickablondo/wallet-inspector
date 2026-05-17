@@ -256,4 +256,7 @@ On déclare le smart contract sur StarkNet :
 $ starkli declare target/dev/cairo_WalletReader.contract_class.json --casm-file target/dev/cairo_WalletReader.compiled_contract_class.json --keystore ~/.starkli-wallets/account.json --account ~/.starkli-wallets/account-descriptor.json --rpc https://starknet-sepolia.g.alchemy.com/starknet/version/rpc/v0_8/<CLE_API_ALCHEMY_STARKNET>
 ```
 
-> ⚠️ La commande `starkli declare` est actuellement bloquée par une incompatibilité entre starkli 0.4.2 et StarkNet v0.14.2 (changement de fonction de hash Blake vs Poseidon). En attente d'une mise à jour de starkli. Utiliser `sncast` (Starknet Foundry) comme alternative.
+> ⚠️ **Blocage connu (mai 2026)** : Le déploiement est actuellement impossible avec starkli 0.4.2
+> car StarkNet Sepolia tourne en v0.14.2 qui utilise un nouveau hash Blake pour les compiled_class_hash, non encore supporté par starkli.
+> En attente d'une mise à jour de l'outillage.
+> Suivre : https://github.com/xJonathanLEI/starkli/issues
