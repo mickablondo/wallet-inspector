@@ -74,7 +74,7 @@ Init du projet Rust et vérification de la compilation :
 $ cargo init
     Creating binary (application) package
 $ cargo run
-   Compiling wallet-inspector v0.1.0 (/mnt/d/Developpement/github/wallet-inspector)
+   Compiling wallet-inspector v0.1.0 (.../wallet-inspector)
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.54s
      Running `target/debug/wallet-inspector`
 Hello, world!
@@ -88,7 +88,7 @@ $ scarb new cairo
 Created `cairo` package.
 
 $ cd cairo && scarb build
-   Compiling cairo v0.1.0 (/mnt/d/Developpement/github/wallet-inspector/cairo/Scarb.toml)
+   Compiling cairo v0.1.0 (.../wallet-inspector/cairo/Scarb.toml)
     Finished `dev` profile target(s) in 1 second
 ```
 
@@ -164,9 +164,20 @@ Les fonctions accessibles :
 - get_watched_count : retourne le nombre d'adresses stockées ;
 - get_watched_address : retourne l'adresse à un index donné ;
 
-### Déploiement du smart contract
+## Déploiement du contrat Cairo sur StarkNet Sepolia
 
-#### Pré requis
+Pour déployer le contrat Cairo, il faut signer la transaction de déploiement. Cela nécessite de créer trois choses :
+
+**1. Un keystore** (`account.json`)  
+Fichier qui contient la clé privée chiffrée stockée localement.
+
+**2. Un fichier de compte** (`account-descriptor.json`)  
+Décrit le compte StarkNet. Starkli en a besoin pour savoir comment construire et signer les transactions.
+
+**3. Un compte on-chain**  
+Sur StarkNet, les comptes sont eux-mêmes des smart contracts — c'est ce qu'on appelle l'_account abstraction_. Un compte doit donc être déployé sur la blockchain avant de pouvoir envoyer des transactions. ArgentX le fait automatiquement à la création du wallet ; avec starkli il faut le faire manuellement.
+
+### Pré requis
 
 Pour déployer le smart contract Cairo sur une blockchain de test, il faut d'abord installer starkli, l'outil CLI pour interagir avec StarkNet :
 
@@ -177,6 +188,43 @@ $ starkliup
 $ starkli --version
 ```
 
-Installer ensuite l'extension https://www.argent.xyz/argent-x/ qui permettra de créer un nouveau wallet compatible StarkNet.
+Installer ensuite l'extension https://www.argent.xyz/argent-x/ qui permettra de créer un nouveau wallet compatible StarkNet sur le réseau Sépolia.  
+Se rendre https://faucet.starknet.io/ pour récupérer des STRK de test.
 
-... Work In Progress
+Créer un dossier pour stocker les clés starkli :
+
+```bash
+$ mkdir -p ~/.starkli-wallets
+```
+
+Création d'un keystore starkli à partir de la seed phrase ArgentX :
+
+```bash
+$ starkli signer keystore from-key ~/.starkli-wallets/account.json
+```
+
+La clé privée est accessible dans l'extension Ready X : <b>Paramètres du compte > Exporter la clé privée</b>.
+
+Création du fichier de compte StarkNet associé :
+
+```bash
+$ starkli account oz init ~/.starkli-wallets/account-descriptor.json --keystore ~/.starkli-wallets/account.json
+Enter keystore password:
+Created new account config file: /home/<user>/.starkli-wallets/account-descriptor.json
+
+Once deployed, this account will be available at:
+    0x...............................
+
+Deploy this account by running:
+    starkli account deploy /home/<user>/.starkli-wallets/account-descriptor.json
+```
+
+Déposer 5 STRX via l'extension Ready X (réseau Sépolia !) sur l'adresse indiquée en sortie de la précédente commande.
+
+### Déploiement
+
+--- WORK IN PROGESS ....
+
+```bash
+$ starkli account deploy ~/.starkli-wallets/account-descriptor.json --keystore ~/.starkli-wallets/account.json --rpc https://starknet-sepolia.drpc.org
+```
