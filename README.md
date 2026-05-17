@@ -55,15 +55,14 @@ cargo 1.95.0 (f2d3ce0bd 2026-03-21)
 Installation de Scarb :
 
 ```bash
-$ curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh
+$ curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh -s -- -v 2.8.5
 
 $ source ~/.bashrc
 
 $ scarb --version
-scarb 2.18.0 (e6144df0f 2026-04-21)
-cairo: 2.18.0 (https://crates.io/crates/cairo-lang-compiler/2.18.0)
-sierra: 1.8.0
-arch: x86_64-unknown-linux-gnu
+scarb 2.8.5 (3967bd4a6 2024-11-18)
+cairo: 2.8.5 (https://crates.io/crates/cairo-lang-compiler/2.8.5)
+sierra: 1.6.0
 ```
 
 ### Initialisation
@@ -113,12 +112,13 @@ $ sudo apt install -y pkg-config libssl-dev
 - Fichier rpc.rs : appel réseau pour récupérer le solde ETH d'une adresse et ses 5 dernières transactions.
 - Fichier starknet.rs : permet de contacter le smart contract Cairo.
 - Fichier .env : fichier à créer à la racine du répertoire du projet, et doit contenir :
-  - ALCHEMY_API_KEY=<votre_api_key_alchemy>
+  - ALCHEMY_API_KEY=<votre_api_key_alchemy_ethereum>
   - ETHERSCAN_API_KEY=<votre_api_key_etherscan>
-  - STARKNET_RPC_URL=https://starknet-sepolia.public.blastapi.io/rpc/v0_7
+  - ALCHEMY_STARKNET_API_KEY=<votre_api_key_alchemy_starknet>
 
-/!\ Besoin de créer une clé API Alchemy (gratuite) sur https://alchemy.com pour récupérer la balance de l'adresse.  
-/!\ Besoin de créer une clé API Etherscan (gratuite) sur https://etherscan.io pour récupérer l'historique des transactions.
+> ⚠️ Créer une clé API Alchemy (gratuite) sur https://alchemy.com — réseau **Ethereum Mainnet** — pour récupérer la balance et les transactions.
+> ⚠️ Créer une clé API Alchemy (gratuite) sur https://alchemy.com — réseau **StarkNet Sepolia** — pour interagir avec le smart contract Cairo.
+> ⚠️ Créer une clé API Etherscan (gratuite) sur https://etherscan.io — pour récupérer l'historique des transactions.
 
 Tests sur l'adresse Ethereum :
 
@@ -225,8 +225,33 @@ Déposer 5 STRX via l'extension Ready X (réseau Sépolia !) sur l'adresse indiq
 
 ### Déploiement
 
---- WORK IN PROGESS ....
+#### Déploiement du compte StarkNet :
 
 ```bash
-$ starkli account deploy ~/.starkli-wallets/account-descriptor.json --keystore ~/.starkli-wallets/account.json --rpc https://starknet-sepolia.drpc.org
+$ starkli account deploy ~/.starkli-wallets/account-descriptor.json --keystore ~/.starkli-wallets/account.json --rpc https://starknet-sepolia.g.alchemy.com/starknet/version/rpc/v0_8/<CLE_API_ALCHEMY_STARKNET>
+Enter keystore password:
+The estimated account deployment fee is 0.019376205515911808 STRK. However, to avoid failure, fund at least:
+    0.043596462410801568 STRK
+to the following address:
+    0x.....................................
+Press [ENTER] once you've funded the address.
+Account deployment transaction: 0x......................
+Waiting for transaction 0x.......................... to confirm. If this process is interrupted, you will need to run `starkli account fetch` to update the account file.
+Transaction not confirmed yet...
+Transaction not confirmed yet...
+Transaction 0x............ confirmed
+```
+
+#### Déploiement du smart contract Cairo
+
+On compile le smart contract :
+
+```bash
+$ cd cairo && scarb build
+```
+
+On déclare le smart contract sur StarkNet :
+
+```bash
+$ starkli declare target/dev/cairo_WalletReader.contract_class.json --casm-file target/dev/cairo_WalletReader.compiled_contract_class.json --keystore ~/.starkli-wallets/account.json --account ~/.starkli-wallets/account-descriptor.json --rpc https://starknet-sepolia.g.alchemy.com/starknet/version/rpc/v0_8/<CLE_API_ALCHEMY_STARKNET>
 ```
