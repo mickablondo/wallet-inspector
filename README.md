@@ -188,8 +188,10 @@ $ starkliup
 $ starkli --version
 ```
 
-Installer ensuite l'extension https://www.argent.xyz/argent-x/ qui permettra de créer un nouveau wallet compatible StarkNet sur le réseau Sépolia.  
-Se rendre https://faucet.starknet.io/ pour récupérer des STRK de test.
+Installer l'extension [ArgentX](https://www.argent.xyz/argent-x/) et créer un wallet sur le réseau **Sepolia** (testnet StarkNet).  
+ArgentX sert uniquement à récupérer des STRK de test via le faucet.
+
+Se rendre sur [Faucet StarkNet](https://faucet.starknet.io/) pour récupérer des STRK de test.
 
 Créer un dossier pour stocker les clés starkli :
 
