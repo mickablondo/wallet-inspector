@@ -188,8 +188,8 @@ $ starkliup
 $ starkli --version
 ```
 
-Installer l'extension [ArgentX](https://www.argent.xyz/argent-x/) et créer un wallet sur le réseau **Sepolia** (testnet StarkNet).  
-ArgentX sert uniquement à récupérer des STRK de test via le faucet.
+Installer l'extension [ReadyX](https://www.ready.co/ready-x) et créer un wallet sur le réseau **Sepolia** (testnet StarkNet).  
+ReadyX sert uniquement à récupérer des STRK de test via le faucet.
 
 Se rendre sur [Faucet StarkNet](https://faucet.starknet.io/) pour récupérer des STRK de test.
 
@@ -205,7 +205,7 @@ Création d'un keystore starkli à partir de la seed phrase ArgentX :
 $ starkli signer keystore from-key ~/.starkli-wallets/account.json
 ```
 
-La clé privée est accessible dans l'extension Ready X : <b>Paramètres du compte > Exporter la clé privée</b>.
+La clé privée est accessible dans l'extension ReadyX : <b>Paramètres du compte > Exporter la clé privée</b>.
 
 Création du fichier de compte StarkNet associé :
 
