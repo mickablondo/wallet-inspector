@@ -115,6 +115,7 @@ $ sudo apt install -y pkg-config libssl-dev
   - ALCHEMY_API_KEY=<votre_api_key_alchemy_ethereum>
   - ETHERSCAN_API_KEY=<votre_api_key_etherscan>
   - ALCHEMY_STARKNET_API_KEY=<votre_api_key_alchemy_starknet>
+  - STARKNET_RPC_URL=<URL_RPC_BLOCKHAIN_STARKNET>
 
 > ⚠️ Créer une clé API Alchemy (gratuite) sur https://alchemy.com — réseau **Ethereum Mainnet** — pour récupérer la balance et les transactions.
 > ⚠️ Créer une clé API Alchemy (gratuite) sur https://alchemy.com — réseau **StarkNet Sepolia** — pour interagir avec le smart contract Cairo.
@@ -223,7 +224,7 @@ Deploy this account by running:
 
 Déposer 5 STRK via l'extension Ready X (réseau Sépolia !) sur l'adresse indiquée en sortie de la précédente commande.
 
-### Déploiement
+### Déploiement sur une blockchain de test
 
 #### Déploiement du compte StarkNet :
 
@@ -260,3 +261,87 @@ $ starkli declare target/dev/cairo_WalletReader.contract_class.json --casm-file 
 > car StarkNet Sepolia tourne en v0.14.2 qui utilise un nouveau hash Blake pour les compiled_class_hash, non encore supporté par starkli.
 > En attente d'une mise à jour de l'outillage.
 > Suivre : https://github.com/xJonathanLEI/starkli/issues
+
+### Déploiement sur une blockchain locale
+
+Pour éviter d'utiliser la blockchain Sepolia, on va installer la blockchain locale starketnet-devnet et sncast.
+
+Dans le cas où vous aviez installé scarb précédemment, supprimez le :
+
+```bash
+$ rm -rf ~/.local/share/scarb-install
+$ rm ~/.local/bin/scarb
+```
+
+Puis installer la blockchain locale et tous les outils compatibles (Scarb, Starknet Foundry avec sncast, starknet-dev ...), tapez les commandes suivantes :
+
+```bash
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.sh | sh
+$ source ~/.bashrc
+$ scarb --version
+$ sncast --version
+$ starknet-devnet --version
+```
+
+Lancement de la blockchain locale (option seed 0 pour générer des comptes de test au démarrage) :
+
+```bash
+$ starknet-devnet --seed 0
+```
+
+Sur un autre terminal, testez que le devnet répond bien :
+
+```bash
+$ curl -X POST http://127.0.0.1:5050/rpc -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"starknet_chainId","params":[],"id":1}'
+{"jsonrpc":"2.0","id":1,"result":"0x......"
+```
+
+Créez un compte sncast à partir des comptes pré-déployés de devnet :
+
+```bash
+$ sncast account import --url http://127.0.0.1:5050/rpc --name devnet-account --address <ACCOUNT_ADDRESS_TEST> --private-key <PRIVATE_KEY_TEST> --type oz
+✔ Do you want to make this account default? · Yes, global default (~/.config/starknet-foundry/snfoundry.toml)
+Success: Account imported successfully
+
+Account Name: devnet-account
+```
+
+Déclaration du smart contract Cairo :
+
+```bash
+$ cd cairo
+$ sncast declare --url http://127.0.0.1:5050/rpc --contract-name WalletReader
+```
+
+Déploiement du smart contract :
+
+```bash
+$ sncast deploy --url http://127.0.0.1:5050/rpc --class-hash <ClassHash_delaprecedentecommande> --arguments '<ACCOUNT_ADDRESS_TEST>'
+```
+
+#### Interaction avec le smart contract
+
+Dans le .env :
+
+```bash
+STARKNET_RPC_URL=http://127.0.0.1:5050/rpc
+```
+
+Lancer la commande suivante avec l'adresse ETH de Vitalik Buterin :
+
+```bash
+$ cargo run -- 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
+   Compiling wallet-inspector v0.1.0 (.../wallet-inspector)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 5.54s
+     Running `.../wallet-inspector/target/debug/wallet-inspector 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045`
+Balance: 5.6767 ETH
+
+Dernières transactions :
+  2026-05-16 13:24 | 0x7147eb6ecfef6e07 | 0 ETH | 0xce21a8b9 -> 0xd8da6bf2 | ✓
+  2026-05-16 10:33 | 0x4dc69741a5845029 | 0.000005 ETH | 0xdd2326a8 -> 0xd8da6bf2 | ✓
+  2026-05-16 10:33 | 0x95ec4f6fdf3f0278 | 0.000008 ETH | 0xdd2326a8 -> 0xd8da6bf2 | ✓
+  2026-05-16 03:39 | 0xec85e587663aeb5c | 0 ETH | 0xd8da6bf2 -> 0xf20784fb | ✓
+  2026-05-14 16:33 | 0x40a628bd7be1e07b | 0.000005 ETH | 0xdd2326a8 -> 0xd8da6bf2 | ✓
+
+StarkNet contract - compteur : 0
+```

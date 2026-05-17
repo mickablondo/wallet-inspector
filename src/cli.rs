@@ -74,18 +74,18 @@ pub async fn run() {
     }
 
     // ----------- STARKNET -----------
-    let starknet_api_key = env::var("ALCHEMY_STARKNET_API_KEY").unwrap_or_else(|_| {
+    let _starknet_api_key = env::var("ALCHEMY_STARKNET_API_KEY").unwrap_or_else(|_| {
         eprintln!("Error: ALCHEMY_STARKNET_API_KEY non trouvé dans .env");
         std::process::exit(1);
     });
 
-    let rpc_url = format!(
-        "https://starknet-sepolia.g.alchemy.com/starknet/version/rpc/v0_9/{}",
-        starknet_api_key
-    );
+    let rpc_url = env::var("STARKNET_RPC_URL").unwrap_or_else(|_| {
+        eprintln!("Error: STARKNET_RPC_URL non trouvé dans .env");
+        std::process::exit(1);
+    });
 
-    // Contrat de test ETH sur Sepolia StarkNet
-    let contract = "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7";
+    // Contrat de test sur la blockchain StarkNet (locale ou Sepolia)
+    let contract = "0x0540c9cae5be30961de91dbe926402a6d7ee00c2aecb3e27b994277dc2e36498";
 
     match crate::starknet::get_watched_count(contract, &rpc_url).await {
         Ok(count) => println!("\nStarkNet contract - compteur : {}", count),
