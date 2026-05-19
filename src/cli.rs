@@ -1,7 +1,35 @@
 use std::env;
 use colored::Colorize;
 use chrono::DateTime;
+use clap::{Parser, Subcommand};
 
+#[derive(Parser)]
+#[command(name = "wallet-inspector")]
+#[command(about = "Inspect Ethereum and StarkNet wallet activity")]
+struct Cli {
+    #[command(subcommand)]
+    command: Command,
+}
+
+#[derive(Subcommand)]
+enum Command {
+    // inspecte une adresse Ethereum
+    Inspect { address: String },
+    // ajoute une adresse au contrat Cairo
+    Add { address: String },
+    // Liste toutes les adresses surveillées
+    List,
+}
+
+/**
+ * Point d'entrée de l'application CLI. Cette fonction récupère les arguments de la ligne de commande, vérifie leur validité, et appelle les fonctions appropriées pour interagir avec les API d'Alchemy, Etherscan, et StarkNet. Les résultats sont affichés dans la console de manière formatée.
+ * - Vérifie que l'adresse Ethereum fournie est valide.
+ * - Récupère les clés API d'Alchemy et Etherscan depuis les variables d'environnement.
+ * - Affiche le solde de l'adresse Ethereum.
+ * - Affiche les 5 dernières transactions de l'adresse Ethereum.
+ * - Affiche le compteur du contrat Cairo sur StarkNet.
+ * En cas d'erreur (adresse invalide, clé API manquante, erreur de réseau), un message d'erreur est affiché et le programme se termine avec un code de sortie non nul.
+ */
 pub async fn run() {
     // récupération des arguments de la ligne de commande
     let args: Vec<String> = env::args().collect();
@@ -74,11 +102,6 @@ pub async fn run() {
     }
 
     // ----------- STARKNET -----------
-    let _starknet_api_key = env::var("ALCHEMY_STARKNET_API_KEY").unwrap_or_else(|_| {
-        eprintln!("Error: ALCHEMY_STARKNET_API_KEY non trouvé dans .env");
-        std::process::exit(1);
-    });
-
     let rpc_url = env::var("STARKNET_RPC_URL").unwrap_or_else(|_| {
         eprintln!("Error: STARKNET_RPC_URL non trouvé dans .env");
         std::process::exit(1);
