@@ -117,8 +117,8 @@ $ sudo apt install -y pkg-config libssl-dev
   - ALCHEMY_STARKNET_API_KEY=<votre_api_key_alchemy_starknet>
   - STARKNET_RPC_URL=<URL_RPC_BLOCKHAIN_STARKNET>
 
-> ⚠️ Créer une clé API Alchemy (gratuite) sur https://alchemy.com — réseau **Ethereum Mainnet** — pour récupérer la balance et les transactions.
-> ⚠️ Créer une clé API Alchemy (gratuite) sur https://alchemy.com — réseau **StarkNet Sepolia** — pour interagir avec le smart contract Cairo.
+> ⚠️ Créer une clé API Alchemy (gratuite) sur https://alchemy.com — réseau **Ethereum Mainnet** — pour récupérer la balance et les transactions.  
+> ⚠️ Créer une clé API Alchemy (gratuite) sur https://alchemy.com — réseau **StarkNet Sepolia** — pour interagir avec le smart contract Cairo.  
 > ⚠️ Créer une clé API Etherscan (gratuite) sur https://etherscan.io — pour récupérer l'historique des transactions.
 
 Tests sur l'adresse Ethereum :
