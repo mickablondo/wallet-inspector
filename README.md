@@ -97,7 +97,7 @@ Ajout des dépendances dans Cargo.toml puis build :
 $ cargo build
 ```
 
-/!\ J'ai dû ajouter deux dépendances pour que le build fonctionne :
+> ⚠️ J'ai dû ajouter deux dépendances pour que le build fonctionne :
 
 ```bash
 $ sudo apt install -y pkg-config libssl-dev
